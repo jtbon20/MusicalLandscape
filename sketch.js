@@ -7,7 +7,7 @@ let source, fft, cnv, mySound;
 const divisions = 2;
 const speed = 1;
 
-const waterThreshold = 10;
+const waterThreshold = 1;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -72,6 +72,14 @@ function getWater(min, max) {
 
 const waterColor = getWater(0, waterThreshold);
 
+function checkWater(spectrum, index) {
+  for (let i = 0; i < 4; i += 1) {
+    if (spectrum[index + i] !== 0) return false;
+  }
+
+  return true;
+}
+
 function draw() {
   const h = height / divisions;
   const mountainColor = getMountain(1, height);
@@ -85,7 +93,7 @@ function draw() {
   for (let i = 0; i < len; i += 1) {
     // color the object
     const z = spectrum[i];
-    if (z <= waterThreshold) stroke(`${waterColor(z)}`);
+    if (checkWater(spectrum, i)) stroke(`${waterColor(z)}`);
     else stroke(`${mountainColor(z)}`);
 
     // draw the outline
