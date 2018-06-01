@@ -8,7 +8,7 @@ const divisions = 1.5;
 const speed = 1;
 
 const waterThreshold = 0.5;
-const widthCenter = 16;
+const widthCenter = 8;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -109,7 +109,7 @@ function draw() {
       const pointLoc = i + j;
       if (pointLoc < len) {
         const point = smoothPoint(spectrum, pointLoc, 4);
-        const x = map(pointLoc, 0, newMax - 1, width / widthCenter + widthCenter / 4, 0);
+        const x = map(pointLoc, 0, newMax - 1, width / widthCenter + widthCenter / 2, 0);
         const y = map(point, 0, 255, h, 0);
         curveVertex(x, y);
       }
