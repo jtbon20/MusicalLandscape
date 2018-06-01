@@ -109,7 +109,7 @@ function draw() {
       const pointLoc = i + j;
       if (pointLoc < len) {
         const point = smoothPoint(spectrum, pointLoc, 4);
-        const x = map(pointLoc, 0, newMax - 1, width / widthCenter + 10, 0);
+        const x = map(pointLoc, 0, newMax - 1, width / widthCenter + 8, 0);
         const y = map(point, 0, 255, h, 0);
         curveVertex(x, y);
       }
