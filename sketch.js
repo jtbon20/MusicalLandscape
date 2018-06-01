@@ -24,7 +24,7 @@ function setup() {
   source.setVolume(0.85);
   source.play();
 
-  fft = new p5.FFT(0.92, 256);
+  fft = new p5.FFT(0.8, 256);
   fft.setInput(source);
 }
 
