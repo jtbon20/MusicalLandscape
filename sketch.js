@@ -8,6 +8,7 @@ const divisions = 1.5;
 const speed = 1;
 
 const waterThreshold = 0.5;
+const widthCenter = 3;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -27,7 +28,7 @@ function setup() {
   // source = new p5.AudioIn();
   // source.start();
 
-  fft = new p5.FFT(0.94, 512);
+  fft = new p5.FFT(0.95, 256);
   fft.setInput(source);
 }
 
@@ -96,6 +97,26 @@ function draw() {
 
   for (let i = 0; i < len; i += 1) {
     // color the object
+    const z = spectrum[len - i];
+    if (checkWater(spectrum, len - i)) stroke(`${waterColor(z)}`);
+    else stroke(`${mountainColor(z)}`);
+
+    // draw the outline
+    beginShape();
+    for (let j = 0; j < 4; j += 1) {
+      const pointLoc = i + j;
+      if (pointLoc < len) {
+        const point = smoothPoint(spectrum, len - pointLoc, 4);
+        const x = map(pointLoc, 0, len - 1, 0, width / widthCenter);
+        const y = map(point, 0, 255, h, 0);
+        curveVertex(x, y);
+      }
+    }
+    endShape();
+  }
+
+  for (let i = 0; i < len; i += 1) {
+    // color the object
     const z = spectrum[i];
     if (checkWater(spectrum, i)) stroke(`${waterColor(z)}`);
     else stroke(`${mountainColor(z)}`);
@@ -106,7 +127,7 @@ function draw() {
       const pointLoc = i + j;
       if (pointLoc < len) {
         const point = smoothPoint(spectrum, pointLoc, 4);
-        const x = map(pointLoc, 0, len - 1, 0, width);
+        const x = map(pointLoc, 0, len - 1, width / widthCenter, width);
         const y = map(point, 0, 255, h, 0);
         curveVertex(x, y);
       }
