@@ -4,10 +4,10 @@
 
 let source, fft, cnv, mySound;
 
-const divisions = 2;
+const divisions = 1.5;
 const speed = 1;
 
-const waterThreshold = 1;
+const waterThreshold = 0.5;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -21,7 +21,7 @@ function setup() {
   noFill();
   strokeWeight(0.5);
 
-  source.setVolume(0.9);
+  source.setVolume(0.85);
   source.play();
 
   fft = new p5.FFT(0.92, 256);
@@ -73,8 +73,9 @@ function getWater(min, max) {
 const waterColor = getWater(0, waterThreshold);
 
 function checkWater(spectrum, index) {
+  const startHeight = spectrum[index];
   for (let i = 0; i < 4; i += 1) {
-    if (spectrum[index + i] !== 0) return false;
+    if (Math.abs(spectrum[index + i] - startHeight) > waterThreshold) return false;
   }
 
   return true;
