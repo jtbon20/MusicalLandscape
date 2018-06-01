@@ -19,12 +19,15 @@ function setup() {
 
   cnv = createCanvas(windowWidth, windowHeight);
   noFill();
-  strokeWeight(0.5);
+  strokeWeight(0.2);
 
   source.setVolume(0.85);
   source.play();
 
-  fft = new p5.FFT(0.99, 1024);
+  // source = new p5.AudioIn();
+  // source.start();
+
+  fft = new p5.FFT(0.94, 512);
   fft.setInput(source);
 }
 
