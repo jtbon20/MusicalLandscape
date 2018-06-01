@@ -8,7 +8,7 @@ const divisions = 1.5;
 const speed = 1;
 
 const waterThreshold = 0.5;
-const widthCenter = 3;
+const widthCenter = 16;
 
 function preload() {
   soundFormats('mp3', 'ogg');
@@ -95,10 +95,12 @@ function draw() {
   background(255, 255, 255, 1);
   copy(cnv, 0, 0, width, height, 0, speed, width, height);
 
-  for (let i = 0; i < len; i += 1) {
+
+  const newMax = len / widthCenter;
+  for (let i = 0; i < newMax; i += 1) {
     // color the object
-    const z = spectrum[len - i];
-    if (checkWater(spectrum, len - i)) stroke(`${waterColor(z)}`);
+    const z = spectrum[i];
+    if (checkWater(spectrum, i)) stroke(`${waterColor(z)}`);
     else stroke(`${mountainColor(z)}`);
 
     // draw the outline
@@ -106,8 +108,8 @@ function draw() {
     for (let j = 0; j < 4; j += 1) {
       const pointLoc = i + j;
       if (pointLoc < len) {
-        const point = smoothPoint(spectrum, len - pointLoc, 4);
-        const x = map(pointLoc, 0, len - 1, 0, width / widthCenter);
+        const point = smoothPoint(spectrum, pointLoc, 4);
+        const x = map(pointLoc, 0, newMax - 1, width / widthCenter + widthCenter / 4, 0);
         const y = map(point, 0, 255, h, 0);
         curveVertex(x, y);
       }
