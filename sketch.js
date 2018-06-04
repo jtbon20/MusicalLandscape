@@ -20,13 +20,10 @@ function setup() {
 
   cnv = createCanvas(windowWidth, windowHeight);
   noFill();
-  strokeWeight(0.3);
+  strokeWeight(0.5);
 
-  // source.setVolume(0.85);
-  // source.play();
-
-  source = new p5.AudioIn();
-  source.start();
+  source.setVolume(0.85);
+  source.play();
 
   fft = new p5.FFT(0.95, 256);
   fft.setInput(source);
@@ -92,28 +89,6 @@ function draw() {
   const newBuffer = [];
   const len = spectrum.length;
 
-
-  const newMax = len / widthCenter;
-  for (let i = 0; i < newMax; i += 1) {
-    // color the object
-    const z = spectrum[i];
-    if (checkWater(spectrum, i)) stroke(`${waterColor(z)}`);
-    else stroke(`${mountainColor(z)}`);
-
-    // draw the outline
-    beginShape();
-    for (let j = 0; j < 4; j += 1) {
-      const pointLoc = i + j;
-      if (pointLoc < len) {
-        const point = smoothPoint(spectrum, pointLoc, 4);
-        const x = map(pointLoc, 0, newMax - 1, width / widthCenter + 8, 0);
-        const y = map(point, 0, 255, h, 0);
-        curveVertex(x, y);
-      }
-    }
-    endShape();
-  }
-
   for (let i = 0; i < len; i += 1) {
     // color the object
     const z = spectrum[i];
@@ -126,7 +101,7 @@ function draw() {
       const pointLoc = i + j;
       if (pointLoc < len) {
         const point = smoothPoint(spectrum, pointLoc, 4);
-        const x = map(pointLoc, 0, len - 1, width / widthCenter, width);
+        const x = map(pointLoc, 0, len - 1, -4, width);
         const y = map(point, 0, 255, h, 0);
         curveVertex(x, y);
       }
@@ -134,6 +109,8 @@ function draw() {
     endShape();
   }
 
+
+  // shift down the new landscape
   background(255, 255, 255, 1);
   copy(cnv, 0, 0, width, height, 0, speed, width, height);
 }
