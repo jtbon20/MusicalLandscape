@@ -20,7 +20,7 @@ function setup() {
 
   cnv = createCanvas(windowWidth, windowHeight);
   noFill();
-  strokeWeight(0.5);
+  strokeWeight(2);
 
   source.setVolume(0.85);
   source.play();
