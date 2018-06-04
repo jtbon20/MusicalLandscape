@@ -22,11 +22,11 @@ function setup() {
   noFill();
   strokeWeight(0.3);
 
-  source.setVolume(0.85);
-  source.play();
+  // source.setVolume(0.85);
+  // source.play();
 
-  // source = new p5.AudioIn();
-  // source.start();
+  source = new p5.AudioIn();
+  source.start();
 
   fft = new p5.FFT(0.95, 256);
   fft.setInput(source);
@@ -92,9 +92,6 @@ function draw() {
   const newBuffer = [];
   const len = spectrum.length;
 
-  background(255, 255, 255, 1);
-  copy(cnv, 0, 0, width, height, 0, speed, width, height);
-
 
   const newMax = len / widthCenter;
   for (let i = 0; i < newMax; i += 1) {
@@ -136,4 +133,7 @@ function draw() {
     }
     endShape();
   }
+
+  background(255, 255, 255, 1);
+  copy(cnv, 0, 0, width, height, 0, speed, width, height);
 }
