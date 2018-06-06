@@ -1,7 +1,6 @@
 # Musical Landscape
-[Project Website](https://jtbon20.github.io/MusicalLandscape/)
-
 ![alt text](assets/musicallandscape.png)
+Check out the work live at the [project website](https://jtbon20.github.io/MusicalLandscape/).
 
 ## Project Overview
 
